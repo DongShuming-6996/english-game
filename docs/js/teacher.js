@@ -860,6 +860,7 @@ function removeTourOverlay() {
   const ov = document.getElementById('tour');
   if (ov) ov.remove();
   window.removeEventListener('resize', positionTourSpotlight);
+  window.removeEventListener('scroll', positionTourSpotlight, true);
 }
 
 function buildTourOverlay(step) {
@@ -881,6 +882,7 @@ function buildTourOverlay(step) {
   });
   document.body.appendChild(ov);
   window.addEventListener('resize', positionTourSpotlight);
+  window.addEventListener('scroll', positionTourSpotlight, true);
   positionTourSpotlight();
 }
 
@@ -888,17 +890,40 @@ function positionTourSpotlight() {
   const ov = document.getElementById('tour');
   if (!ov || !tour) return;
   const step = tour.steps[tour.idx];
+  const card = ov.querySelector('.tour-card');
+  if (!card) return;
   let spot = ov.querySelector('.tour-spot');
   if (!spot) { spot = document.createElement('div'); spot.className = 'tour-spot'; ov.appendChild(spot); }
   const target = step.sel ? document.querySelector(step.sel) : null;
-  if (!target) { spot.style.display = 'none'; return; }
-  spot.style.display = 'block';
+  const vh = window.innerHeight;
+  if (!target) {
+    spot.style.display = 'none';
+    card.style.top = 'auto';
+    card.style.bottom = '26px';
+    return;
+  }
   const r = target.getBoundingClientRect();
+  spot.style.display = 'block';
   spot.style.left = r.left + 'px';
   spot.style.top = r.top + 'px';
   spot.style.width = r.width + 'px';
   spot.style.height = r.height + 'px';
   spot.style.borderRadius = '14px';
+
+  // 卡片放到目标的反方向，避免挡住需要点击的元素
+  const cardH = card.offsetHeight || 120;
+  const targetMid = r.top + r.height / 2;
+  card.style.left = '50%';
+  card.style.transform = 'translateX(-50%)';
+  if (targetMid > vh / 2) {
+    // 目标在下半屏 → 卡片放上方
+    card.style.bottom = 'auto';
+    card.style.top = Math.max(12, r.top - cardH - 12) + 'px';
+  } else {
+    // 目标在上半屏 → 卡片放下方
+    card.style.top = 'auto';
+    card.style.bottom = Math.max(12, vh - r.bottom - 12) + 'px';
+  }
 }
 
 // 退出按钮：第一次点弹窗引导，之后直接退出
