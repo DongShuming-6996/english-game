@@ -78,6 +78,21 @@ def ensure_repo(token):
         sys.exit(f"创建仓库失败: {code} {data.get('message')}")
 
 
+def ensure_ref(token):
+    """空仓库无法直接用 Git Data API 上传，先用 Contents API 写入一个初始 README 引导出首个 commit。"""
+    code, _data = api("GET", f"{API}/repos/{OWNER}/{REPO}/git/ref/heads/{BRANCH}", token)
+    if code == 200:
+        return
+    init_content = base64.b64encode("# english-game\n\n大勇士小英语 GitHub Pages 部署仓库\n".encode("utf-8")).decode()
+    code, data = api("PUT", f"{API}/repos/{OWNER}/{REPO}/contents/README.md", token, {
+        "message": "init",
+        "content": init_content,
+    })
+    if code not in (200, 201):
+        sys.exit(f"空仓库初始化失败: {code} {data.get('message')}")
+    print("空仓库已初始化（已产生首个 commit），继续上传…")
+
+
 def walk_files():
     for root, _dirs, files in os.walk(SITE_DIR):
         for name in sorted(files):
@@ -157,6 +172,7 @@ def main():
     print("令牌有效，登录账号:", data.get("login"))
     ensure_repo(token)
     print("上传站点文件…")
+    ensure_ref(token)
     upload(token)
     enable_pages(token)
     print()
