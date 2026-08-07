@@ -3,21 +3,21 @@ const APP_NAME = '大勇士小英语';
 
 // 素材图片（来自桌面「儿童英语素材」，已压缩到 images/ 目录）
 const IMG = {
-  leo: 'images/img01.png',       // 雀斑男孩
-  lily: 'images/img02.png',      // 双马尾女孩
-  mia: 'images/img03.png',       // 橘猫（向导）
-  schoolKid: 'images/img04.png', // 眼镜男孩
-  buddy: 'images/img05.png',     // 垂耳小狗（向导）
-  sportGirl: 'images/img06.png', // 运动女孩
-  rabbit: 'images/img07.png',    // 小白兔
-  tom: 'images/img08.png',       // 工装男孩
-  bear: 'images/img09.png',      // 棕熊
-  braidGirl: 'images/img10.png', // 麻花辫女孩
-  robotKid: 'images/img11.png',  // 爆炸头男孩
-  fox: 'images/img12.png',       // 小狐狸
-  princess: 'images/img13.png',  // 公主裙女孩
-  duck: 'images/img14.png',      // 小鸭子
-  panda: 'images/img15.png'      // 小熊猫
+  leo: 'images/img01.jpg',       // 雀斑男孩
+  lily: 'images/img02.jpg',      // 双马尾女孩
+  mia: 'images/img03.jpg',       // 橘猫（向导）
+  schoolKid: 'images/img04.jpg', // 眼镜男孩
+  buddy: 'images/img05.jpg',     // 垂耳小狗（向导）
+  sportGirl: 'images/img06.jpg', // 运动女孩
+  rabbit: 'images/img07.jpg',    // 小白兔
+  tom: 'images/img08.jpg',       // 工装男孩
+  bear: 'images/img09.jpg',      // 棕熊
+  braidGirl: 'images/img10.jpg', // 麻花辫女孩
+  robotKid: 'images/img11.jpg',  // 爆炸头男孩
+  fox: 'images/img12.jpg',       // 小狐狸
+  princess: 'images/img13.jpg',  // 公主裙女孩
+  duck: 'images/img14.jpg',      // 小鸭子
+  panda: 'images/img15.jpg'      // 小熊猫
 };
 
 // 预置账号（MVP 测试用）

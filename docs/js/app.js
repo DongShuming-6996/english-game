@@ -93,7 +93,7 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 function avatarHtml(acc, cls) {
-  return `<span class="avatar ${cls}"><span class="avatar-emoji">${acc.avatar}</span><img class="avatar-img" src="${acc.img}" alt="${acc.name}" onerror="this.style.display='none'"></span>`;
+  return `<span class="avatar ${cls}"><span class="avatar-emoji">${acc.avatar}</span><img class="avatar-img" src="${acc.img}" alt="${acc.name}" loading="lazy" decoding="async" onerror="this.style.display='none'"></span>`;
 }
 function speakerStyle(who) {
   const color = who && SPEAKER_COLORS[who] ? SPEAKER_COLORS[who] : '#9AA0B4';
@@ -205,7 +205,7 @@ function renderHome() {
     const doneCount = th.passages.filter(pg => ts.passages[pg.id].done).length;
     return `
     <div class="theme-card ${unlocked ? '' : 'locked'}" style="--tc:${th.color}" data-action="${unlocked ? 'theme' : 'lockTip'}" data-arg="${th.id}">
-      <div class="theme-icon"><img src="${th.bannerImg}" alt="${th.name}" onerror="this.style.display='none';document.getElementById('ti-${th.id}').style.display='flex'"><span class="ti-emoji" id="ti-${th.id}" style="display:none">${th.icon}</span></div>
+      <div class="theme-icon"><img src="${th.bannerImg}" alt="${th.name}" loading="lazy" decoding="async" onerror="this.style.display='none';document.getElementById('ti-${th.id}').style.display='flex'"><span class="ti-emoji" id="ti-${th.id}" style="display:none">${th.icon}</span></div>
       <div class="theme-info">
         <div class="theme-name">${th.name}</div>
         <div class="theme-desc">${th.desc}</div>
@@ -232,8 +232,8 @@ function renderHome() {
         <div class="stat"><b>${p.checkin.total}</b><span>累计打卡</span></div>
       </div>
       <div class="hero-mascots">
-        <img class="mascot" src="${IMG.mia}" alt="Mia 小猫" onerror="this.style.display='none'">
-        <img class="mascot d2" src="${IMG.buddy}" alt="Buddy 小狗" onerror="this.style.display='none'">
+        <img class="mascot" src="${IMG.mia}" alt="Mia 小猫" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <img class="mascot d2" src="${IMG.buddy}" alt="Buddy 小狗" loading="lazy" decoding="async" onerror="this.style.display='none'">
       </div>
       <div class="checkin-row">
         <div class="checkin-info">${p.checkin.last === todayStr() ? '✅ 今天已自动打卡，棒棒的！' : '📅 今天还没打卡，完成一关就自动打卡'}</div>
@@ -256,7 +256,7 @@ function renderTheme() {
     const levelsDone = Object.keys(ps.levels).length;
     return `
     <div class="passage-card ${unlocked ? '' : 'locked'}" data-action="${unlocked ? 'passage' : 'lockTip'}" data-arg="${pg.id}">
-      <div class="passage-icon"><img src="${pg.cover}" alt="${pg.title}" onerror="this.style.display='none';document.getElementById('pi-${pg.id}').style.display='flex'"><span class="pi-emoji" id="pi-${pg.id}" style="display:none">${pg.type === 'dialog' ? '💬' : '📖'}</span></div>
+      <div class="passage-icon"><img src="${pg.cover}" alt="${pg.title}" loading="lazy" decoding="async" onerror="this.style.display='none';document.getElementById('pi-${pg.id}').style.display='flex'"><span class="pi-emoji" id="pi-${pg.id}" style="display:none">${pg.type === 'dialog' ? '💬' : '📖'}</span></div>
       <div class="passage-info">
         <div class="passage-type">${pg.type === 'dialog' ? '对话' : '小故事'}</div>
         <div class="passage-title">${esc(pg.title)}</div>
@@ -270,7 +270,7 @@ function renderTheme() {
   <div class="screen">
     ${header(th.name, 'home')}
     <div class="theme-banner" style="--tc:${th.color}">
-      <img class="banner-img" src="${th.bannerImg}" alt="${th.name}" onerror="this.style.display='none'">
+      <img class="banner-img" src="${th.bannerImg}" alt="${th.name}" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <div>
         <div class="banner-title">${th.icon} ${th.name}</div>
         <div class="banner-desc">${th.desc}</div>
